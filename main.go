@@ -8,6 +8,10 @@ import (
 	"net/http"
 )
 
+var (
+	tgBotToken = "your bot's token"
+)
+
 func Reverse(s string) string {
 	runes := []rune(s)
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
@@ -73,7 +77,7 @@ func sayPolo(chatID int64, text string) error {
 	}
 
 	// Send a post request with your token
-	res, err := http.Post("https://api.telegram.org/bot2108403709:AAHUN0sg0POV1Vpsc3x7ZFCG1lSsbheB0Ow/sendMessage", "application/json", bytes.NewBuffer(reqBytes))
+	res, err := http.Post("https://api.telegram.org/bot"+tgBotToken+"/sendMessage", "application/json", bytes.NewBuffer(reqBytes))
 	if err != nil {
 		return err
 	}
@@ -81,6 +85,7 @@ func sayPolo(chatID int64, text string) error {
 		return errors.New("unexpected status" + res.Status)
 	}
 
+	fmt.Println("Reply: ", reqBody.Text)
 	return nil
 }
 
